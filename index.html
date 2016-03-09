@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<title>移动端 - 日期选择器</title>
+	<link rel="stylesheet" type="text/css" href="css/mdater.css">
+</head>
+<body>
+	<input id="in" type="text" readonly></input>
+	<script type="text/javascript" src="js/zepto.js"></script>
+	<script type="text/javascript" src="js/mdater.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var opts = {
+				minDate: new Date(2016,00,01),
+				maxDate: new Date(2016,02,09),
+			};
+			$('#in').mdater(opts);
+		});
+	</script>
+</body>
+</html>
