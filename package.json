@@ -1,0 +1,25 @@
+{
+  "name": "jquery-mdater",
+  "version": "1.0.1",
+  "description": "a pretty mobile datepicker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekuwang/jquery-mdater.git"
+  },
+  "keywords": [
+    "jquery",
+    "datepicker",
+    "mdater",
+    "mobile"
+  ],
+  "author": "ekuwang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekuwang/jquery-mdater/issues"
+  },
+  "homepage": "https://github.com/ekuwang/jquery-mdater#readme"
+}
