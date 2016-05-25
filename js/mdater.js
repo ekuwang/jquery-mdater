@@ -251,8 +251,9 @@
 					}
 				});
 
-				mask.on('tap', function(){
+				mask.on('tap', function(e){
 					_this._hidePanel();
+					return false;
 				});
 
 				panel.delegates({
