@@ -53,38 +53,43 @@
 			},
 			lastCheckedDate : '',
 			init : function(){
+				this.id = Math.round(Math.random() * 10000);
 				this.renderHTML();
 				this.initListeners();
 			},
 			renderHTML : function(){
-				var $html = $('<div class="md_mask"></div><div class="md_panel"><div class="md_head"><div class="md_selectarea"><a class="md_prev change_year" href="javascript:void(0);">&lt;</a> <a class="md_headtext yeartag" href="javascript:void(0);"></a> <a class="md_next change_year" href="javascript:void(0);">&gt;</a></div><div class="md_selectarea"><a class="md_prev change_month" href="javascript:void(0);">&lt;</a> <a class="md_headtext monthtag" href="javascript:void(0);">月</a> <a class="md_next change_month" href="javascript:void(0);">&gt;</a></div></div><div class="md_body"><ul class="md_weekarea"><li>日</li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li></ul><ul class="md_datearea in"></ul></div><div class="md_foot"><a href="javascript:void(0);" class="md_ok">确定</a> <a href="javascript:void(0);" class="md_cancel">取消</a></div></div>');
+				var $html = $('<div id="md_mask-' + this.id + '" class="md_mask"></div><div id="md_panel-' + this.id + '" class="md_panel"><div class="md_head"><div class="md_selectarea"><a class="md_prev change_year" href="javascript:void(0);">&lt;</a> <a class="md_headtext yeartag" href="javascript:void(0);"></a> <a class="md_next change_year" href="javascript:void(0);">&gt;</a></div><div class="md_selectarea"><a class="md_prev change_month" href="javascript:void(0);">&lt;</a> <a class="md_headtext monthtag" href="javascript:void(0);">月</a> <a class="md_next change_month" href="javascript:void(0);">&gt;</a></div></div><div class="md_body"><ul class="md_weekarea"><li>日</li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li></ul><ul class="md_datearea in"></ul></div><div class="md_foot"><a href="javascript:void(0);" class="md_ok">确定</a> <a href="javascript:void(0);" class="md_cancel">取消</a></div></div>');
 
 				$(document.body).append($html);
+				this.md_mask = $("#md_mask-" + this.id);
+				this.md_panel = $("#md_panel-" + this.id);
 			},
 			_showPanel : function(container){
 				this.refreshView();
-				$('.md_panel, .md_mask').addClass('show');
+				this.md_panel.addClass('show');
+				this.md_mask.addClass('show');
 			},
 			_hidePanel : function(){
-				$('.md_panel, .md_mask').removeClass('show');
+				this.md_panel.removeClass('show');
+				this.md_mask.removeClass('show');
 			},
 			_changeMonth : function(add, checkDate){
 
 				//先把已选择的日期保存下来
 				this.saveCheckedDate();
 
-				var monthTag = $('.md_selectarea').find('.monthtag'),
+				var monthTag = $('.md_selectarea', this.md_panel).find('.monthtag'),
 					num = ~~monthTag.data('month')+add;
 				//月份变动发生了跨年
 				if(num>11){
 					num = 0;
 					this.value.year++;
-					$('.yeartag').text(this.value.year).data('year', this.value.year);
+					$('.yeartag', this.md_panel).text(this.value.year + '年').data('year', this.value.year);
 				}
 				else if(num<0){
 					num = 11;
 					this.value.year--;
-					$('.yeartag').text(this.value.year).data('year', this.value.year);
+					$('.yeartag', this.md_panel).text(this.value.year + '年').data('year', this.value.year);
 				}
 
 				var nextMonth = F.getMonth(num)+'月';
@@ -103,7 +108,7 @@
 				//先把已选择的日期保存下来
 				this.saveCheckedDate();
 
-				var yearTag = $('.md_selectarea').find('.yeartag'),
+				var yearTag = $('.md_selectarea', this.md_panel).find('.yeartag'),
 					num = ~~yearTag.data('year')+add;
 				yearTag.text(num+'年').data('year', num);
 				this.value.year = num;
@@ -195,7 +200,7 @@
 				return dayStr;
 			},
 			updateDate : function(add){
-				var dateArea = $('.md_datearea.in');
+				var dateArea = $('.md_datearea.in', this.md_panel);
 				if(add == 1){
 					var c1 = 'out_left';
 					var c2 = 'out_right';
@@ -206,7 +211,7 @@
 				}
 				var newDateArea = $('<ul class="md_datearea '+c2+'"></ul>');
 				newDateArea.html(this.getDateStr(this.value.year, this.value.month, this.value.date));
-				$('.md_body').append(newDateArea);
+				$('.md_body', this.md_panel).append(newDateArea);
 				setTimeout(function(){
 					newDateArea.removeClass(c2).addClass('in');
 					dateArea.removeClass('in').addClass(c1);
@@ -227,14 +232,14 @@
 				var y = this.value.year = date.getFullYear(),
 					m = this.value.month = date.getMonth(),
 					d = this.value.date = date.getDate();
-				$('.yeartag').text(y).data('year', y);
-				$('.monthtag').text(F.getMonth(m)+'月').data('month', m);
+				$('.yeartag', this.md_panel).text(y + '年').data('year', y);
+				$('.monthtag', this.md_panel).text(F.getMonth(m)+'月').data('month', m);
 				var dayStr = this.getDateStr(y, m, d);
-				$('.md_datearea').html(dayStr);
+				$('.md_datearea', this.md_panel).html(dayStr);
 			},
 			initListeners : function(){
-				var panel = $('.md_panel'),
-					mask = $('.md_mask'),
+				var panel = this.md_panel,
+					mask = this.md_mask,
 					_this = this;
 
 				input.on('tap', function(){
