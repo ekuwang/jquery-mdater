@@ -1,9 +1,9 @@
-### 移动端 - 日期面板选择器(基于zepto)
+### 移动端 - 日期面板选择器
 使用说明:
 1. 在页面上引入 css 和 js (可以参考index.html)
 ```
 <link rel="stylesheet" type="text/css" href="css/mdate.css">
-<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/mdate.js"></script>
 ```
 

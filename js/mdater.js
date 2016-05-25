@@ -310,4 +310,4 @@
 		}
 		mdater.init();
 	}
-})(Zepto);
+})(jQuery);
